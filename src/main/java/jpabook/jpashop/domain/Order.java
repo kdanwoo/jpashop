@@ -23,15 +23,16 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member; //주문 회원
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name ="delivery_id")
     private Delivery delivery;
 
     private LocalDateTime orderDate;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문상태 [ORDER,CANCEL]
 
     //연관 관계 메서드
